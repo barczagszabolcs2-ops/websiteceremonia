@@ -1,12 +1,10 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: barczagszabolcs2-ops/barczag-ceremoniamester
   branch: main
 
 media_folder: "assets"
 public_folder: "/assets"
-
-media_library:
-  name: "uploadcare"
 
 collections:
   - name: "calendar"
@@ -19,4 +17,3 @@ collections:
           - label: "Foglalt napok (YYYY-MM-DD)"
             name: "busy"
             widget: "list"
-            hint: "Példa: 2026-07-18"
