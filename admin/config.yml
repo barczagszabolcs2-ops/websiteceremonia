@@ -1,10 +1,15 @@
 backend:
-  name: github
-  repo: barczagszabolcs2-ops/barczag-ceremoniamester
+  name: git-gateway
   branch: main
 
+# Kötelező mezők (különben hibát dobhat)
 media_folder: "assets"
 public_folder: "/assets"
+
+# Opcionális: ha nem használsz képfeltöltést a CMS-ben, ez maradhat alap
+# (Ne állíts be uploadcare-t, ha nem konfiguráltad külön!)
+# media_library:
+#   name: "uploadcare"
 
 collections:
   - name: "calendar"
@@ -17,3 +22,4 @@ collections:
           - label: "Foglalt napok (YYYY-MM-DD)"
             name: "busy"
             widget: "list"
+            hint: "Példa: 2026-07-18"
