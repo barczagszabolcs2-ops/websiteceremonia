@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Barczag Szabolcs – Ceremóniamester</title>
+  <meta name="description" content="Professzionális ceremóniamester szolgáltatás esküvőkre. Több éves tapasztalat, egyedi megközelítés, felejthetetlen pillanatok." />
+
+  <style>
+    :root{
+      --bg0:#070b12; --bg1:#0b1424; --bg2:#111e33;
+      --stroke: rgba(255,255,255,.10);
+      --text:#eaf0ff; --muted: rgba(234,240,255,.72);
+      --accent:#f59e0b; --accent2:#fbbf24;
+      --green:#22c55e; --red:#ef4444;
+      --shadow: 0 18px 55px rgba(0,0,0,.45);
+      --r:18px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;}
+    body{
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 50% 120px, rgba(255,255,255,.07), transparent 60%),
+        radial-gradient(1200px 600px at 50% -80px, rgba(245,158,11,.08), transparent 58%),
+        linear-gradient(180deg, var(--bg0), var(--bg1) 35%, var(--bg2));
+      min-height:100vh;
+    }
+    a{color:inherit;text-decoration:none;-webkit-tap-highlight-color: transparent;}
+    .wrap{max-width:1220px;margin:0 auto;padding:0 18px;}
+
+    .topbar{
+      position:sticky;top:0;z-index:50;
+      background:rgba(10,16,28,.86);
+      backdrop-filter: blur(12px);
+      border-bottom:1px solid rgba(255,255,255,.07);
+    }
+    .top-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 0;}
+    .brandLink{display:flex;align-items:center;gap:12px;min-width:200px;}
+    .logoImg{
+      width:44px;height:44px;border-radius:12px;object-fit:contain;
+      box-shadow:0 10px 25px rgba(245,158,11,.22);
+      border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.06);
+      padding:4px;
+    }
+    .brandTxt{line-height:1.12}
+    .brandTxt .name{font-weight:900;font-size:1.05rem;}
+    .brandTxt .role{color:var(--accent2);opacity:.95;font-weight:650;font-size:.92rem;margin-top:3px;}
+
+    .nav{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;}
+    .nav a{
+      display:inline-flex;align-items:center;gap:9px;
+      padding:10px 14px;border-radius:12px;
+      border:1px solid transparent;
+      color:rgba(234,240,255,.92);
+      transition:.16s;
+      user-select:none;
+      font-weight:650;
+      font-size:.95rem;
+    }
+    .nav a:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.06);}
+
+    /* mobile menu (CSS checkbox, JS nélkül) */
+    .hamburger{display:none;}
+    .burgerBtn{
+      display:none;
+      width:44px;height:44px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.06);
+      cursor:pointer;
+      place-items:center;
+    }
+    .burgerBtn svg{width:22px;height:22px}
+    .drawer{
+      display:none;
+      border-top:1px solid rgba(255,255,255,.08);
+      padding:12px 0 14px;
+    }
+    .drawer a{
+      display:flex;align-items:center;justify-content:space-between;
+      padding:12px 10px;border-radius:12px;
+      margin:6px 0;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.04);
+      font-weight:900;
+    }
+    .drawer small{color:var(--muted);font-weight:700}
+    @media (max-width: 900px){
+      .nav{display:none;}
+      .burgerBtn{display:grid;}
+      .hamburger:checked ~ .drawer{display:block;}
+    }
+
+    main{padding:18px 0 46px;}
+    .section{display:none;}
+    #home.section{display:block;}
+    .section:target{display:block;}
+    .section:target ~ #home.section{display:none;}
+
+    .titleBlock{padding:28px 0 10px;text-align:center;}
+    .titleBlock h1{font-size:clamp(1.8rem,3.4vw,3rem);font-weight:950;margin-bottom:10px;text-shadow:0 14px 30px rgba(0,0,0,.35);}
+    .titleBlock p{max-width:900px;margin:0 auto;color:var(--muted);font-size:1.05rem;line-height:1.6;}
+
+    .card{
+      background: linear-gradient(180deg, rgba(38,52,73,.92), rgba(38,52,73,.78));
+      border:1px solid var(--stroke);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+    }
+    .pad{padding:22px;}
+    .grid1{display:grid;gap:16px;max-width:900px;margin:20px auto;}
+    .grid2{display:grid;gap:16px;grid-template-columns:repeat(2,minmax(0,1fr));max-width:1100px;margin:20px auto;}
+    @media (max-width: 900px){ .grid2{grid-template-columns:1fr;} }
+
+    .feature{display:flex;gap:14px;align-items:flex-start;padding:20px;border-radius:14px;background:rgba(0,0,0,.12);border:1px solid rgba(255,255,255,.08);}
+    .fIcon{width:40px;height:40px;border-radius:14px;display:grid;place-items:center;background:rgba(245,158,11,.14);border:1px solid rgba(245,158,11,.24);flex:0 0 auto;}
+    .fIcon svg{width:18px;height:18px;stroke:var(--accent2);stroke-width:2;fill:none;}
+    .feature h3{font-size:1.12rem;font-weight:950;margin-bottom:4px;}
+    .feature p{color:var(--muted);line-height:1.55;font-weight:650;}
+
+    .videoGrid{display:grid;gap:16px;grid-template-columns:repeat(2,minmax(0,1fr));}
+    @media (max-width: 900px){ .videoGrid{grid-template-columns:1fr;} }
+    .vCard{padding:16px;border-radius:16px;background:rgba(0,0,0,.12);border:1px solid rgba(255,255,255,.08);}
+    .thumb{
+      position:relative;border-radius:14px;overflow:hidden;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);
+      height:220px;
+      display:grid;place-items:center;
+    }
+    .play{
+      width:64px;height:64px;border-radius:999px;
+      display:grid;place-items:center;
+      background:rgba(245,158,11,.18);
+      border:1px solid rgba(245,158,11,.30);
+      box-shadow:0 18px 35px rgba(0,0,0,.35);
+    }
+    .play svg{width:24px;height:24px;fill:var(--accent2);}
+    .vMeta{margin-top:10px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+    .vMeta .t{font-weight:950}
+    .btnLink{
+      display:inline-flex;align-items:center;gap:8px;
+      padding:10px 12px;border-radius:12px;
+      border:1px solid rgba(245,158,11,.25);
+      background:rgba(245,158,11,.10);
+      color:var(--accent2);
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    /* Calendar */
+    .calWrap{max-width:1100px;margin:20px auto;}
+    .calTop{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px;}
+    .calTitle{font-weight:950;font-size:1.3rem}
+    .calBtn{
+      width:44px;height:44px;border-radius:14px;
+      border:1px solid rgba(245,158,11,.25);
+      background:rgba(245,158,11,.10);
+      cursor:pointer;
+      display:grid;place-items:center;
+    }
+    .calBtn svg{width:18px;height:18px;stroke:var(--accent2);stroke-width:2;fill:none;}
+    .legend{display:flex;gap:14px;justify-content:center;margin:10px 0 16px;color:var(--muted);font-weight:800}
+    .dot{width:12px;height:12px;border-radius:4px;display:inline-block;margin-right:8px;}
+    .gridCal{display:grid;gap:10px;grid-template-columns:repeat(7, minmax(0,1fr));}
+    .dow{color:var(--accent2);font-weight:950;text-align:center;padding:6px 0;}
+    .day{
+      border-radius:10px;
+      padding:14px 0;
+      text-align:center;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.12);
+      font-weight:950;
+      user-select:none;
+    }
+    .day.empty{opacity:.0;pointer-events:none;}
+    .day.free{background:rgba(34,197,94,.18);border-color:rgba(34,197,94,.35);cursor:pointer;}
+    .day.busy{background:rgba(239,68,68,.18);border-color:rgba(239,68,68,.35);opacity:.85;pointer-events:none;}
+    .day.na{opacity:.35;pointer-events:none;}
+
+    /* Prices list */
+    .priceList{display:grid;gap:12px;margin-top:14px;}
+    .priceItem{padding:14px;border-radius:14px;background:rgba(0,0,0,.12);border:1px solid rgba(255,255,255,.08);}
+    .priceItem b{color:var(--accent2);}
+
+    /* Booking */
+    .bookingGrid{display:grid;gap:16px;grid-template-columns:repeat(2,minmax(0,1fr));max-width:900px;margin:20px auto;}
+    @media (max-width: 900px){ .bookingGrid{grid-template-columns:1fr;} }
+    .bigTile{
+      border-radius:18px;padding:22px;min-height:180px;
+      display:grid;place-items:center;text-align:center;
+      box-shadow:var(--shadow);
+      border:1px solid rgba(255,255,255,.10);
+      cursor:pointer;
+    }
+    .wa{background:linear-gradient(180deg, rgba(34,197,94,.95), rgba(22,163,74,.85));}
+    .call{background:linear-gradient(180deg, rgba(245,158,11,.95), rgba(217,119,6,.85));}
+    .bigTile h3{font-size:1.4rem;font-weight:950;margin-top:10px;}
+    .bigTile p{opacity:.95;font-weight:800;margin-top:6px;}
+    .bigTile svg{width:56px;height:56px;fill:rgba(255,255,255,.92)}
+
+    footer{padding:26px 0 34px;border-top:1px solid rgba(255,255,255,.07);color:rgba(234,240,255,.72);text-align:center;}
+    .adminLink{font-size:.85rem;opacity:.55}
+    .adminLink:hover{opacity:.85}
+
+    /* admin stats only if adminMode */
+    .adminStats{margin-top:14px;display:none;}
+    .adminStats.show{display:block;}
+    .statBox{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+    .statPill{padding:10px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:rgba(0,0,0,.14);font-weight:900;color:rgba(234,240,255,.9)}
+    .statPill b{color:var(--accent2)}
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="wrap">
+      <div class="top-inner">
+        <a class="brandLink" href="/#home" title="Kezdőlap">
+          <img class="logoImg" src="logo.png" alt="Barczag Szabolcs logo" />
+          <div class="brandTxt">
+            <div class="name">Barczag Szabolcs</div>
+            <div class="role">Ceremóniamester</div>
+          </div>
+        </a>
+
+        <div style="display:flex;align-items:center;gap:10px;">
+          <nav class="nav" aria-label="Menü">
+            <a href="#home">Kezdőlap</a>
+            <a href="#videos">Videók</a>
+            <a href="#calendar">Naptár</a>
+            <a href="#prices">Árak</a>
+            <a href="#contact">Kapcsolat</a>
+            <a href="#booking">Foglalás</a>
+          </nav>
+
+          <input class="hamburger" id="hamburger" type="checkbox" />
+          <label class="burgerBtn" for="hamburger" aria-label="Menü">
+            <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+          </label>
+        </div>
+      </div>
+
+      <div class="drawer" aria-label="Mobil menü">
+        <a href="#home" onclick="document.getElementById('hamburger').checked=false">Kezdőlap <small>→</small></a>
+        <a href="#videos" onclick="document.getElementById('hamburger').checked=false">Videók <small>→</small></a>
+        <a href="#calendar" onclick="document.getElementById('hamburger').checked=false">Naptár <small>→</small></a>
+        <a href="#prices" onclick="document.getElementById('hamburger').checked=false">Árak <small>→</small></a>
+        <a href="#contact" onclick="document.getElementById('hamburger').checked=false">Kapcsolat <small>→</small></a>
+        <a href="#booking" onclick="document.getElementById('hamburger').checked=false">Foglalás <small>→</small></a>
+      </div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <!-- HOME -->
+    <section id="home" class="section">
+      <div class="titleBlock">
+        <h1>Tegyük felejthetetlenné a Nagy Napotokat!</h1>
+        <p>
+          Professzionális ceremóniamester szolgáltatás esküvőkre. Több éves tapasztalat, egyedi megközelítés, felejthetetlen pillanatok.
+        </p>
+      </div>
+
+      <div class="grid1">
+        <div class="card">
+          <div class="pad" style="display:grid;gap:14px;">
+            <div class="feature">
+              <div class="fIcon">
+                <svg viewBox="0 0 24 24"><path d="M12 21s7-4.35 7-11a7 7 0 0 0-14 0c0 6.65 7 11 7 11z"/></svg>
+              </div>
+              <div>
+                <h3>Tapasztalat</h3>
+                <p>Számos sikeres rendezvény, elégedett párok és vendégek</p>
+              </div>
+            </div>
+
+            <div class="feature">
+              <div class="fIcon">
+                <svg viewBox="0 0 24 24"><path d="M8 7h8M8 12h8M8 17h8"/></svg>
+              </div>
+              <div>
+                <h3>Rugalmasság</h3>
+                <p>Személyre szabott programok, egyedi kérések teljesítése</p>
+              </div>
+            </div>
+
+            <div class="feature">
+              <div class="fIcon">
+                <svg viewBox="0 0 24 24"><path d="M12 3l7 4v6c0 5-3 8-7 8s-7-3-7-8V7l7-4z"/></svg>
+              </div>
+              <div>
+                <h3>Professzionalizmus</h3>
+                <p>Precíz szervezés, hibátlan lebonyolítás, stresszmentes nap</p>
+              </div>
+            </div>
+
+            <div style="text-align:center;margin-top:6px;">
+              <a class="adminLink" href="/admin" rel="nofollow">Admin belépés</a>
+            </div>
+
+            <div id="adminStats" class="adminStats">
+              <div class="statBox">
+                <div class="statPill">Összes megtekintés: <b id="statTotal">–</b></div>
+                <div class="statPill">Mai megtekintés: <b id="statToday">–</b></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section id="videos" class="section">
+      <div class="titleBlock">
+        <h1>Videók</h1>
+        <p>TikTok videók – mobilon biztos működés: kártyák → megnyitás TikTok-on.</p>
+      </div>
+
+      <div class="grid1">
+        <div class="card"><div class="pad">
+          <div class="videoGrid" id="videoGrid"></div>
+        </div></div>
+      </div>
+    </section>
+
+    <!-- CALENDAR -->
+    <section id="calendar" class="section">
+      <div class="titleBlock">
+        <h1>Foglaltági Naptár</h1>
+        <p>Péntek és szombat alapból szabad. A piros napok foglaltak, nem kattinthatók.</p>
+      </div>
+
+      <div class="grid1">
+        <div class="card"><div class="pad">
+          <div class="calWrap">
+            <div class="calTop">
+              <button class="calBtn" id="prevMonth" type="button" aria-label="Előző hónap">
+                <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+              <div class="calTitle" id="calMonth">–</div>
+              <button class="calBtn" id="nextMonth" type="button" aria-label="Következő hónap">
+                <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></svg>
+              </button>
+            </div>
+
+            <div class="legend">
+              <span><span class="dot" style="background:rgba(34,197,94,.9)"></span>Szabad</span>
+              <span><span class="dot" style="background:rgba(239,68,68,.9)"></span>Foglalt</span>
+              <span><span class="dot" style="background:rgba(255,255,255,.25)"></span>Nem elérhető</span>
+            </div>
+
+            <div class="gridCal" id="calGrid"></div>
+          </div>
+        </div></div>
+      </div>
+    </section>
+
+    <!-- PRICES -->
+    <section id="prices" class="section">
+      <div class="titleBlock">
+        <h1>Árak</h1>
+        <p>TELJES NAPOS PROGRAM – Kérj árajánlatot! Egyedi ajánlat igényeid szerint.</p>
+      </div>
+
+      <div class="grid1">
+        <div class="card"><div class="pad">
+          <div class="priceList">
+            <div class="priceItem"><b>1. Vőlegény búcsúztató</b><br/>Hagyományos szertartás vezénylése</div>
+            <div class="priceItem"><b>2. Menyasszony kikeresés</b><br/>Vidám, izgalmas szertartás lebonyolítása</div>
+            <div class="priceItem"><b>3. Menyasszony búcsúztató</b><br/>Megható pillanatok szakszerű vezetése</div>
+            <div class="priceItem"><b>4. Lakodalmas terem programja</b><br/>Versek, mondókák, hagyományos szokások</div>
+            <div class="priceItem"><b>5. 1-2-3 játék</b><br/>Megegyezés szerint, vidám szórakoztatás</div>
+            <div class="priceItem"><b>6. Egésznapos program vezetése</b><br/>Reggeltől estig folyamatos jelenlét és koordináció</div>
+          </div>
+        </div></div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section">
+      <div class="titleBlock">
+        <h1>Kapcsolat</h1>
+        <p>Keress bizalommal az alábbi elérhetőségeken!</p>
+      </div>
+
+      <div class="grid1">
+        <div class="card"><div class="pad" style="display:grid;gap:12px;">
+          <div class="priceItem"><b>Telefonszám</b><br/><a href="tel:+40743311849">+40 743 311 849</a></div>
+          <div class="priceItem"><b>Email</b><br/><a href="mailto:barczagszabolcs2@gmail.com">barczagszabolcs2@gmail.com</a></div>
+          <div class="priceItem"><b>Közösségi média</b><br/>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:10px;">
+              <a class="btnLink" href="https://www.tiktok.com/@szabolcsceremoniamester" target="_blank" rel="noopener">TikTok</a>
+              <a class="btnLink" href="https://www.facebook.com/szabolcsceremoniamester" target="_blank" rel="noopener">Facebook</a>
+              <a class="btnLink" href="https://www.instagram.com/szabibridesman1/" target="_blank" rel="noopener">Instagram</a>
+            </div>
+          </div>
+        </div></div>
+      </div>
+    </section>
+
+    <!-- BOOKING -->
+    <section id="booking" class="section">
+      <div class="titleBlock">
+        <h1>Foglalás</h1>
+        <p>Válaszd ki a számodra megfelelő kapcsolatfelvételi módot!</p>
+      </div>
+
+      <div class="bookingGrid">
+        <a id="waLink" class="bigTile wa" href="#" target="_blank" rel="noopener">
+          <div>
+            <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M19.11 17.21c-.27-.14-1.6-.79-1.85-.88-.25-.09-.43-.14-.61.14-.18.27-.7.88-.86 1.06-.16.18-.32.2-.59.07-.27-.14-1.15-.42-2.19-1.34-.81-.72-1.36-1.6-1.52-1.87-.16-.27-.02-.41.12-.55.12-.12.27-.32.41-.48.14-.16.18-.27.27-.45.09-.18.04-.34-.02-.48-.07-.14-.61-1.47-.84-2.01-.22-.53-.44-.46-.61-.47l-.52-.01c-.18 0-.47.07-.72.34-.25.27-.95.93-.95 2.26s.97 2.62 1.11 2.8c.14.18 1.9 2.9 4.61 4.07.64.28 1.14.45 1.53.58.64.2 1.23.17 1.69.1.52-.08 1.6-.65 1.83-1.28.23-.63.23-1.17.16-1.28-.07-.11-.25-.18-.52-.32zM16.04 5.33c-5.88 0-10.67 4.79-10.67 10.67 0 1.88.49 3.72 1.42 5.35L5.26 26.67l5.49-1.44c1.56.85 3.32 1.3 5.29 1.3 5.88 0 10.67-4.79 10.67-10.67S21.92 5.33 16.04 5.33zm0 19.34c-1.79 0-3.5-.48-4.99-1.38l-.36-.22-3.26.85.87-3.18-.24-.39a8.87 8.87 0 0 1-1.37-4.76c0-4.9 3.99-8.89 8.89-8.89s8.89 3.99 8.89 8.89-3.99 8.88-8.89 8.88z"/></svg>
+            <h3>WhatsApp</h3>
+            <p id="selDateTxt">Írj üzenetet most!</p>
+          </div>
+        </a>
+
+        <a class="bigTile call" href="tel:+40743311849">
+          <div>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1-.24 11.36 11.36 0 0 0 3.56.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.56 1 1 0 0 1-.24 1z"/></svg>
+            <h3>Telefonhívás</h3>
+            <p>Hívj fel most!<br/>+40 743 311 849</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © 2026 Barczag Szabolcs – Ceremóniamester
+  </footer>
+
+  <script>
+    // ---- TikTok links (kártyák, biztos mobilon is) ----
+    const TIKTOK = [
+      "https://www.tiktok.com/@szabolcsceremoniamester/video/7577773509741382934",
+      "https://www.tiktok.com/@szabolcsceremoniamester/video/7578586627493088534",
+      "https://www.tiktok.com/@szabolcsceremoniamester/video/7579702615542336790",
+      "https://www.tiktok.com/@szabolcsceremoniamester/video/7580758852509961494",
+      "https://www.tiktok.com/@szabolcsceremoniamester/video/7581121026197556502",
+      "https://www.tiktok.com/@szabolcsceremoniamester/video/7585967337187069206",
+      "https://www.tiktok.com/@szabolcsceremoniamester/video/7588544926401432854",
+      "https://www.tiktok.com/@szabolcsceremoniamester/video/7591179253023083798"
+    ];
+
+    function renderVideos(){
+      const grid = document.getElementById('videoGrid');
+      if(!grid) return;
+      grid.innerHTML = "";
+      TIKTOK.forEach((url, i) => {
+        const card = document.createElement('div');
+        card.className = 'vCard';
+        card.innerHTML = `
+          <a href="${url}" target="_blank" rel="noopener">
+            <div class="thumb" aria-label="Videó megnyitása TikTok-on">
+              <div class="play">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              </div>
+            </div>
+          </a>
+          <div class="vMeta">
+            <div class="t">Videó #${i+1}</div>
+            <a class="btnLink" href="${url}" target="_blank" rel="noopener">Megnyitás TikTok-on</a>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // ---- Calendar logic ----
+    // busy dates are stored in data/bookings.json (managed by CMS)
+    let busySet = new Set();
+    let cur = new Date();
+    cur.setDate(1);
+
+    const dowHu = ["H","K","Sz","Cs","P","Sz","V"];
+
+    async function loadBusy(){
+      try{
+        const res = await fetch("/data/bookings.json", { cache: "no-store" });
+        const json = await res.json();
+        const busy = Array.isArray(json.busy) ? json.busy : [];
+        busySet = new Set(busy);
+      }catch(e){
+        busySet = new Set();
+      }
+    }
+
+    function fmtYMD(d){
+      const y = d.getFullYear();
+      const m = String(d.getMonth()+1).padStart(2,"0");
+      const day = String(d.getDate()).padStart(2,"0");
+      return `${y}-${m}-${day}`;
+    }
+
+    function isFriOrSat(d){
+      // JS: 0=Sun ... 5=Fri 6=Sat
+      const w = d.getDay();
+      return (w === 5 || w === 6);
+    }
+
+    function monthTitle(d){
+      const months = ["Január","Február","Március","Április","Május","Június","Július","Augusztus","Szeptember","Október","November","December"];
+      return `${months[d.getMonth()]} ${d.getFullYear()}`;
+    }
+
+    function setSelectedDate(d){
+      const ymd = fmtYMD(d);
+      const txt = document.getElementById("selDateTxt");
+      if(txt) txt.textContent = `Kiválasztott dátum: ${ymd}`;
+
+      const msg = encodeURIComponent(`Szia! Érdeklődnék a ${ymd} időpontról. :)`);
+      const wa = document.getElementById("waLink");
+      if(wa) wa.href = `https://wa.me/40743311849?text=${msg}`;
+    }
+
+    function renderCalendar(){
+      const grid = document.getElementById("calGrid");
+      const title = document.getElementById("calMonth");
+      if(!grid || !title) return;
+
+      title.textContent = monthTitle(cur);
+      grid.innerHTML = "";
+
+      // header dow
+      dowHu.forEach(d => {
+        const el = document.createElement("div");
+        el.className = "dow";
+        el.textContent = d;
+        grid.appendChild(el);
+      });
+
+      const firstDow = (new Date(cur.getFullYear(), cur.getMonth(), 1)).getDay(); // 0..6 (Sun..Sat)
+      // we want Monday-first in UI -> convert
+      const offset = (firstDow === 0) ? 6 : firstDow - 1;
+
+      for(let i=0;i<offset;i++){
+        const el = document.createElement("div");
+        el.className = "day empty";
+        el.textContent = "";
+        grid.appendChild(el);
+      }
+
+      const daysInMonth = new Date(cur.getFullYear(), cur.getMonth()+1, 0).getDate();
+
+      for(let day=1; day<=daysInMonth; day++){
+        const d = new Date(cur.getFullYear(), cur.getMonth(), day);
+        const ymd = fmtYMD(d);
+
+        const el = document.createElement("div");
+        el.className = "day";
+        el.textContent = day;
+
+        if(busySet.has(ymd)){
+          el.classList.add("busy"); // piros, nem kattintható
+        } else if(isFriOrSat(d)){
+          el.classList.add("free"); // zöld, kattintható
+          el.addEventListener("click", () => {
+            setSelectedDate(d);
+            location.hash = "#booking";
+          }, { passive:true });
+        } else {
+          el.classList.add("na"); // nem elérhető
+        }
+
+        grid.appendChild(el);
+      }
+    }
+
+    document.getElementById("prevMonth")?.addEventListener("click", async () => {
+      cur = new Date(cur.getFullYear(), cur.getMonth()-1, 1);
+      await loadBusy();
+      renderCalendar();
+    });
+
+    document.getElementById("nextMonth")?.addEventListener("click", async () => {
+      cur = new Date(cur.getFullYear(), cur.getMonth()+1, 1);
+      await loadBusy();
+      renderCalendar();
+    });
+
+    // ---- Admin stats (only show if ?admin=1) ----
+    // (így nem látszik másnak, csak neked ha hozzáteszed a végére: ?admin=1)
+    async function loadAdminStats(){
+      const params = new URLSearchParams(location.search);
+      const isAdminView = params.get("admin") === "1";
+      if(!isAdminView) return;
+
+      const box = document.getElementById("adminStats");
+      if(box) box.classList.add("show");
+
+      try{
+        const res = await fetch("/.netlify/functions/stats", { cache: "no-store" });
+        const json = await res.json();
+        document.getElementById("statTotal").textContent = (json.total ?? "–");
+        document.getElementById("statToday").textContent = (json.today ?? "–");
+      }catch(e){
+        // leave as –
+      }
+    }
+
+    // INIT
+    (async function(){
+      renderVideos();
+      await loadBusy();
+      renderCalendar();
+      // preset WA default
+      setSelectedDate(new Date());
+      await loadAdminStats();
+    })();
+  </script>
+</body>
+</html>
