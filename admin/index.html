@@ -6,48 +6,6 @@
     <title>Admin – Naptár</title>
   </head>
   <body>
-    <script>
-      // Kézi indítás, így nem kell config.yml-t betöltenie (és nem dob hibát).
-      window.CMS_MANUAL_INIT = true;
-
-      window.__CMS_CONFIG__ = {
-        backend: { name: "git-gateway", branch: "main" },
-
-        media_folder: "assets",
-        public_folder: "/assets",
-
-        // Kötelező mező, de valójában nem fogsz képet feltölteni – ettől viszont nem panaszkodik.
-        media_library: { name: "uploadcare" },
-
-        collections: [
-          {
-            name: "calendar",
-            label: "Naptár",
-            files: [
-              {
-                file: "data/bookings.json",
-                label: "Foglalt dátumok",
-                name: "bookings",
-                fields: [
-                  {
-                    label: "Foglalt napok (YYYY-MM-DD)",
-                    name: "busy",
-                    widget: "list",
-                    hint: "Példa: 2026-07-18"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      };
-    </script>
-
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
-    <script>
-      // Indítjuk a CMS-t a beégetett konfigurációval
-      CMS.init({ config: window.__CMS_CONFIG__ });
-    </script>
   </body>
 </html>
-
