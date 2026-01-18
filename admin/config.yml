@@ -1,0 +1,16 @@
+backend:
+  name: git-gateway
+  branch: main
+
+collections:
+  - name: "calendar"
+    label: "Naptár"
+    files:
+      - file: "data/bookings.json"
+        label: "Foglalt dátumok"
+        name: "bookings"
+        fields:
+          - label: "Foglalt napok (YYYY-MM-DD)"
+            name: "busy"
+            widget: "list"
+            hint: "Példa: 2026-07-18"
